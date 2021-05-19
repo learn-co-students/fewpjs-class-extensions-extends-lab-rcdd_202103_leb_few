@@ -1,74 +1,55 @@
-let circle;
-let triangle;
-let square;
+/ Your code here
+class Polygon {
+  constructor(sides) {
+    this.sides = sides
+    this.count = this.sides.length
+  }
 
+  get getCount() {
+    return this.sides.length
+  }
 
+  get perimeter() {
+    let sum = 0;
+    for (let i = 0; i < this.sides.length; i++) {
+      let side = this.sides[i]
+      sum += side
+    }
+    return sum
+  }
+}
 
-describe( "Polygon", () => {
-  beforeEach( () => {
-    polygon = new Polygon( [ 5, 5, 5 ] )
-  } )
+class Triangle extends Polygon {
 
-  it( "has a Polygon class", () => {
-    expect( Polygon ).to.exist
-  } )
+  get isValid() {
+    let side1 = this.sides[0]
+    let side2 = this.sides[1]
+    let side3 = this.sides[2]
+    if (this.count !== 3) {
+      return;
+    }
+    return ((side1 === side2) && (side1 === side3) && (side2 === side3))
+  }
+}
 
-  it( "Polygon has a countSides getter method that returns the number of sides of the polygon", () => {
-    expect( polygon.countSides ).to.eq( 3 )
-  } )
+class Square extends Polygon {
 
-  it( "Polygon has a perimeter getter that calculates perimeter", () => {
-    expect( polygon.perimeter ).to.eq( 15 )
-  } )
-} )
+  get area() {
+    if (this.isValid) {
+      let side1 = this.sides[0]
+      let side2 = this.sides[1]
+      return side1 * side2
+    }
+  }
 
-describe( "Triangle", () => {
-  let triangle
-  let triangle2
-  it( "has a Triangle class", () => {
-    expect( Triangle ).to.exist
-  } )
-
-  it( "checks for valid triangle", () => {
-    triangle = new Triangle( [ 5, 5, 5 ] )
-    triangle2 = new Triangle( [ 15, 10, 1 ] )
-
-    expect( triangle.countSides ).to.eq( 3 )
-
-    expect( triangle.isValid ).to.be.true
-    expect( triangle2.isValid ).to.be.false
-  } )
-
-  it( "has a perimeter getter inherited from Polygon", () => {
-    expect( triangle.perimeter ).to.eq( 15 )
-    expect( triangle2.perimeter ).to.eq( 26 )
-  } )
-} )
-
-
-describe( "Square", () => {
-  it( "has a Square class", () => {
-    expect( Square ).to.exist
-  } )
-
-  it( "has a perimeter getter inherited from Polygon", () => {
-    let square = new Square( [ 5, 5, 5, 5 ] )
-
-    expect( square.perimeter ).to.eq( 20 )
-  } )
-
-  it( "calculates the area", () => {
-    let square = new Square( [ 5, 5, 5, 5 ] )
-
-    expect( square.area ).to.eq( 25 )
-  } )
-
-  it( "checks for valid square", () => {
-    let square = new Square( [ 5, 5, 5, 5 ] )
-    let square2 = new Square( [ 5, 4, 3, 2 ] )
-
-    expect( square.countSides ).to.eq( 4 )
-    expect( square.isValid ).to.be.true
-    expect( square2.isValid ).to.be.false
-  } )
-} )
+  get isValid() {
+    let side1 = this.sides[0]
+    let side2 = this.sides[1]
+    let side3 = this.sides[2]
+    let side4 = this.sides[3]
+    if (this.count !== 4) {
+      return;
+    }
+    return ((side1 === side2) && (side1 === side3) && (side2 === side3) && (side3 === side4))
+  }
+}
